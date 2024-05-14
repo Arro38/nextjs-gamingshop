@@ -18,11 +18,29 @@ import Image from "next/image";
 import { SlBasket } from "react-icons/sl";
 import Badge from "@mui/material/Badge";
 import AccountDropDown from "./AccountDropdown";
-import { List } from "@mui/material";
 
 export function Navbar() {
+  // onscroll event hide navbar on scroll down and show on scroll up or at the top
+  const [prevScrollPos, setPrevScrollPos] = React.useState(0);
+  const [visible, setVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos, visible]);
   return (
-    <nav className="flex justify-between p-4 m-2 border rounded-md border-black shadow-md">
+    <nav
+      className={cn(
+        "flex justify-between p-4 border rounded-md shadow-md fixed z-50 bg-secondary w-screen transition-all duration-300 ease-in-out top-0",
+        !visible && "-top-40"
+      )}
+    >
+      {/* <nav className="flex justify-between p-4  border rounded-md  shadow-md fixed z-50 bg-secondary w-screen"> */}
       <Link href="/" passHref>
         <Image src={logo} alt="Videodrive" width={56} />
       </Link>
@@ -30,11 +48,12 @@ export function Navbar() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/" passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Accueil
-              </NavigationMenuLink>
-            </Link>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle()}
+              href="/"
+            >
+              Accueil
+            </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Nouveautés</NavigationMenuTrigger>
@@ -106,9 +125,9 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
-          </p>
+          </div>
         </a>
       </NavigationMenuLink>
     </li>

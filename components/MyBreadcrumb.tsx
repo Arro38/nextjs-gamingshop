@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/breadcrumb";
 export default function MyBreadcrumb() {
   return (
-    <Breadcrumb>
-      <BreadcrumbList className="justify-center">
+    <Breadcrumb className="ml-2 my-2">
+      <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
         </BreadcrumbItem>

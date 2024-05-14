@@ -18,13 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={inter.className + " container"}>
-        <nav>
-          <Navbar />
-          <MyBreadcrumb />
-        </nav>
-
-        {children}
+      <body className={inter.className}>
+        <Navbar />
+        <main className="container pt-28">{children}</main>
       </body>
     </html>
   );

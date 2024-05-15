@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { MyDatePicker } from "@/components/MyDatePicker";
+import { Product } from "@prisma/client";
 
 function Panier() {
   const [products, setProducts] = useState<

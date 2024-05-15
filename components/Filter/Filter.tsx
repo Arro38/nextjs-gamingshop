@@ -3,13 +3,23 @@ import { useState } from "react";
 import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import MyCheckbox from "./MyCheckbox";
-import { plateforms as p, categories as c } from "@/lib/data";
+import { Category, Plateform } from "@prisma/client";
 
-export default function Filter({ max }: { max: number }) {
+export default function Filter({
+  max,
+  categories,
+  plateforms,
+}: {
+  max: number;
+  categories: Category[];
+  plateforms: Plateform[];
+}) {
   const [maxPrice, setMaxPrice] = useState(max);
   const [search, setSearch] = useState("");
-  const [categories, setCategories] = useState<Category[]>(c);
-  const [plateforms, setPlateforms] = useState<Plateform[]>(p);
+  const [categoriesSelected, setCategoriesSelected] =
+    useState<Category[]>(categories);
+  const [plateformsSelected, setPlateformsSelected] =
+    useState<Plateform[]>(plateforms);
 
   const handleSliderChange = (values: number[]) => {
     setMaxPrice(values[0]);

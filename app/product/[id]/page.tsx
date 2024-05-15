@@ -7,18 +7,26 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { products } from "@/lib/data";
+import { getCategoryById } from "@/prisma/categories";
+import { getPlatformById } from "@/prisma/platform";
+import { getProductById } from "@/prisma/product";
 import Image from "next/image";
 
-function ProductPage({ params }: { params: { id: string } }) {
+async function ProductPage({ params }: { params: { id: string } }) {
   const { id } = params;
-  const product: Product = products[0];
+  const product = await getProductById(id);
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+  const category = await getCategoryById(product.categoryId);
+  const plateform = await getPlatformById(product.plateformId);
   return (
     <Card className="">
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
         <CardDescription>
-          {product.plateform.name}- {product.category.name}
+          {plateform?.name}- {category?.name}
         </CardDescription>
       </CardHeader>
       <CardContent>

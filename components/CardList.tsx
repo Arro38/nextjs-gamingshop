@@ -1,8 +1,10 @@
-import { products } from "@/lib/data";
+import { Product } from "@prisma/client";
 import MyCard from "./MyCard";
 import { MyPagination } from "./MyPagination";
+import { getAllProducts } from "@/prisma/product";
 
-export default function CardList() {
+export default async function CardList() {
+  const products = await getAllProducts();
   return (
     <div>
       <div className="grid grid-cols-4 gap-4">

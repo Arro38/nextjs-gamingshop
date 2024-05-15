@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+model Category {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  Product Product[]
+}
+
+model Plateform {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  Product Product[]
+}
+
+model Product {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  cover       String
+  description String
+  price       Float
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String      @db.ObjectId
+  plateform   Plateform   @relation(fields: [plateformId], references: [id])
+  plateformId String      @db.ObjectId
+  createdAt   DateTime    @default(now())
+  OrderItem   OrderItem[]
+}
+
+model Order {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  total     Float
+  stripeId  String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  OrderItem OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @db.ObjectId
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String  @db.ObjectId
+}

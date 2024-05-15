@@ -27,6 +27,9 @@ function MyCard({
             aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
           )}
         />
+        <span className="font-semibold mt-2 line-clamp-2 max-w-24">
+          {product.name.trim()}
+        </span>
       </Link>
     </div>
   );

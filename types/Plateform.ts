@@ -1,4 +1,4 @@
 interface Plateform {
-  id: number;
+  id: string;
   name: string;
 }

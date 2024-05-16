@@ -23,8 +23,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
-import { MyDatePicker } from "@/components/MyDatePicker";
+// import { MyDatePicker } from "@/components/MyDatePicker";
 import { Product } from "@prisma/client";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
 function Panier() {
   const [products, setProducts] = useState<
@@ -74,6 +76,25 @@ function Panier() {
       })
     );
   };
+
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
+  const stripePromise = loadStripe(publishableKey);
+  const createCheckOutSession = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post("/api/create-stripe-session", {
+      products: products,
+    });
+    console.log(checkoutSession);
+    const result = await stripe!.redirectToCheckout({
+      sessionId: checkoutSession.data.sessionId,
+      // sessionId:
+      //   "cs_test_a1zDs595mjvvM6Uh3OaMXSsimCEvWpCWrteLk6vD8Q11BrPS7Z7zAXek2i",
+    });
+    if (result.error) {
+      alert(result.error.message);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -122,6 +143,7 @@ function Panier() {
         <div className="flex justify-between space-x-2 ml-auto">
           <p className="text-lg font-semibold">Total : </p>
           <p className="text-lg font-semibold">{total} €</p>
+          <Button onClick={createCheckOutSession}>Payer avec Stripe</Button>
         </div>
         <AlertDialog>
           <AlertDialogTrigger>
@@ -166,7 +188,9 @@ function Panier() {
                     Total : {total} €
                   </p>
                   {/* <MyDatePicker date={date} setDate={setDate} /> */}
-                  <Button type="submit">Payer avec Stripe </Button>
+                  <Button type="submit" onClick={createCheckOutSession}>
+                    Payer avec Stripe
+                  </Button>
                 </form>
               </AlertDialogDescription>
             </AlertDialogHeader>

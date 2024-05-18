@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { AddBasketButton } from "@/components/AddBasketButton";
 import {
   Card,
   CardHeader,
@@ -41,11 +41,12 @@ async function ProductPage({ params }: { params: { id: string } }) {
           <div className="max-w-md space-y-4">
             <p>{product.description}</p>
             <p className="font-bold">{product.price} €</p>
-            <Button>Ajouter au panier</Button>
           </div>
         </div>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <AddBasketButton product={product} />
+      </CardFooter>
     </Card>
   );
 }

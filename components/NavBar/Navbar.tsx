@@ -18,11 +18,42 @@ import Image from "next/image";
 import { SlBasket } from "react-icons/sl";
 import Badge from "@mui/material/Badge";
 import AccountDropDown from "./AccountDropdown";
+import { useStore } from "zustand";
+import { useOrderStore } from "@/store/orderStore";
+import GameListMenu from "./GameListMenu";
+import PlatformListMenu from "./PlatformListMenu";
 
 export function Navbar() {
-  // onscroll event hide navbar on scroll down and show on scroll up or at the top
+  const { products } = useStore(useOrderStore, (state) => state);
   const [prevScrollPos, setPrevScrollPos] = React.useState(0);
   const [visible, setVisible] = React.useState(true);
+  const [quantity, setQuantity] = React.useState(0);
+
+  React.useEffect(() => {
+    products.map((product) => {
+      setQuantity((prev) => prev + product.quantity);
+    });
+  }, [products]);
+
+  React.useEffect(() => {
+    const updateQuantity = () => {
+      let totalQuantity = 0;
+      products.forEach((product) => {
+        totalQuantity += product.quantity;
+      });
+      setQuantity(totalQuantity);
+    };
+
+    updateQuantity();
+
+    const unsubscribe = useOrderStore.subscribe((newState) => {
+      updateQuantity();
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [products]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -59,15 +90,7 @@ export function Navbar() {
             <NavigationMenuTrigger>Nouveautés</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {gameList.map((game) => (
-                  <ListItem
-                    key={game.title}
-                    title={game.title}
-                    href={game.href}
-                  >
-                    {game.description}
-                  </ListItem>
-                ))}
+                <GameListMenu />
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -76,15 +99,7 @@ export function Navbar() {
             <NavigationMenuTrigger>Consoles</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {consoleList.map((console) => (
-                  <ListItem
-                    key={console.title}
-                    title={console.title}
-                    href={console.href}
-                  >
-                    {console.description}
-                  </ListItem>
-                ))}
+                <PlatformListMenu />
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -99,7 +114,11 @@ export function Navbar() {
       </NavigationMenu>
       <div className="flex items-center gap-4">
         <Link href="/panier" passHref>
-          <Badge badgeContent={4} color="primary" className="cursor-pointer">
+          <Badge
+            badgeContent={quantity}
+            color="primary"
+            className="cursor-pointer"
+          >
             <SlBasket size={24} />
           </Badge>
         </Link>
@@ -108,71 +127,3 @@ export function Navbar() {
     </nav>
   );
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </div>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-
-ListItem.displayName = "ListItem";
-
-const gameList: { title: string; href: string; description: string }[] = [
-  {
-    title: "Cyberpunk 2077",
-    href: "/jeux/2",
-    description: "Un jeu de rôle futuriste",
-  },
-  {
-    title: "The Witcher 3",
-    href: "/jeux/3",
-    description: "Un jeu de rôle médiéval",
-  },
-  {
-    title: "Assassin's Creed Valhalla",
-    href: "/jeux/4",
-    description: "Un jeu d'aventure viking",
-  },
-  {
-    title: "Call of Duty Warzone",
-    href: "/jeux/5",
-    description: "Un jeu de tir à la première personne",
-  },
-];
-
-const consoleList: { title: string; href: string; description: string }[] = [
-  {
-    title: "Playstation 5",
-    href: "/consoles/1",
-    description: "La dernière console de Sony",
-  },
-  {
-    title: "Xbox Series X",
-    href: "/consoles/2",
-    description: "La dernière console de Microsoft",
-  },
-  {
-    title: "Nintendo Switch",
-    href: "/consoles/3",
-    description: "La console hybride de Nintendo",
-  },
-];

@@ -21,9 +21,12 @@ model Category {
 }
 
 model Plateform {
-  id      String    @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  Product Product[]
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  cover       String
+  Product     Product[]
 }
 
 model Product {

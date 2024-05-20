@@ -89,18 +89,14 @@ export function Navbar() {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Nouveautés</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                <GameListMenu />
-              </ul>
+              <GameListMenu />
             </NavigationMenuContent>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
             <NavigationMenuTrigger>Consoles</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                <PlatformListMenu />
-              </ul>
+              <PlatformListMenu />
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>

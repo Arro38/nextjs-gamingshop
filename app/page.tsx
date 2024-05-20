@@ -10,8 +10,8 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <div className="flex flex-wrap space-x-4 my-6 justify-center  items-center">
-        <Filter max={200} categories={categories} plateforms={plateforms} />
+      <div className="flex flex-wrap space-x-4 my-6  items-center">
+        <Filter categories={categories} plateforms={plateforms} />
         <CardList />
       </div>
     </>

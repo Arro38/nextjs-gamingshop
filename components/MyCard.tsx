@@ -23,12 +23,13 @@ function MyCard({
           alt={product.name}
           width={width}
           height={height}
+          priority={true}
           className={cn(
             "object-cover transition-all hover:scale-105",
-            aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
+            // aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square",
           )}
         />
-        <span className="font-semibold mt-2 line-clamp-2 max-w-24">
+        <span className="mt-2 line-clamp-2 max-w-24 font-semibold">
           {product.name.trim()}
         </span>
       </Link>

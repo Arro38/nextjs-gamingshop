@@ -37,7 +37,9 @@ export default function HeroSection({ slides }: { slides: Slide[] }) {
                       src={_.cover}
                       alt={_.title}
                       fill
+                      sizes="100% 100%"
                       className="rounded-md object-cover"
+                      priority={index < 2}
                     />
                     <h2 className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 text-2xl font-bold text-white">
                       {_.title}

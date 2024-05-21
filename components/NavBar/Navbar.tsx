@@ -67,16 +67,15 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "flex justify-between p-4 border rounded-md shadow-md fixed z-50 bg-secondary w-screen transition-all duration-300 ease-in-out top-0",
-        !visible && "-top-40"
+        "fixed top-0 z-50 flex w-screen items-center justify-between rounded-b-md border bg-primary p-4 text-secondary shadow-md transition-all duration-300 ease-in-out",
+        !visible && "-top-40",
       )}
     >
-      {/* <nav className="flex justify-between p-4  border rounded-md  shadow-md fixed z-50 bg-secondary w-screen"> */}
       <Link href="/" passHref>
         <Image src={logo} alt="Videodrive" width={56} />
       </Link>
 
-      <NavigationMenu>
+      <NavigationMenu className="hidden md:block">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink

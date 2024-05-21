@@ -48,7 +48,7 @@ export default function Filter({
   };
 
   return (
-    <div className="border border-spacing-2 p-6 lg:max-w-xs min-h-full lg:space-y-4 rounded-md shadow-md flex mb-4 lg:mb-0 space-x-4 lg:flex-col lg:space-x-0">
+    <div className="mb-4 flex min-h-full border-spacing-2 flex-wrap space-x-4 rounded-md border p-6 shadow-md lg:mb-0 lg:max-w-xs lg:flex-col lg:space-x-0 lg:space-y-4">
       <div className="space-y-2">
         <h2 className="text-lg font-semibold">Filtres</h2>
 
@@ -64,28 +64,28 @@ export default function Filter({
           </p>
         ) : (
           // filtres actifs
-          <div className="flex flex-wrap min-w-full">
-            <p>
+          <div className="flex min-w-full flex-wrap">
+            <div>
               {selectedCategories.map((c) => (
                 <Badge key={c.id}>{c.name}</Badge>
               ))}
-            </p>
-            <p>
+            </div>
+            <div>
               {selectedPlatforms.map((p) => (
                 <Badge key={p.id}>{p.name}</Badge>
               ))}
-            </p>
+            </div>
           </div>
         )}
         <div>
-          <h2 className="text-lg font-semibold mb-2">Prix</h2>
+          <h2 className="mb-2 text-lg font-semibold">Prix</h2>
           <Slider
             defaultValue={[selectedMaxPrice]}
             max={1000}
             step={1}
             onValueChange={handleSliderChange}
           />
-          <div className="flex justify-between mt-2">
+          <div className="mt-2 flex justify-between">
             <span>0</span>
             <span>{selectedMaxPrice}</span>
           </div>
@@ -119,7 +119,11 @@ export default function Filter({
               label={plateform.name}
               key={plateform.id}
               onValueChange={handlePlatformChange}
-              defaultValue={selectedPlatforms.includes(plateform)}
+              defaultValue={
+                selectedPlatforms.find((p) => p.id === plateform.id)
+                  ? true
+                  : false
+              }
             />
           ))}
         </div>

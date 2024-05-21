@@ -41,12 +41,11 @@ async function ProductPage({ params }: { params: { id: string } }) {
           <div className="max-w-md space-y-4">
             <p>{product.description}</p>
             <p className="font-bold">{product.price} €</p>
+            <AddBasketButton product={product} />
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <AddBasketButton product={product} />
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   );
 }

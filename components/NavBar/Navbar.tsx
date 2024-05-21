@@ -102,7 +102,7 @@ export function Navbar() {
           <NavigationMenuItem>
             <Link href="/a-propos" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Videodrive
+                A propos
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

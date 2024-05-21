@@ -10,8 +10,8 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
+  // previewFeatures = ["mongoDb"]
 }
 
 model Category {
@@ -59,4 +59,11 @@ model OrderItem {
   productId String  @db.ObjectId
   order     Order   @relation(fields: [orderId], references: [id])
   orderId   String  @db.ObjectId
+}
+
+model Slide {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  cover     String
+  createdAt DateTime @default(now())
 }

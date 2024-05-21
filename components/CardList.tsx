@@ -63,7 +63,7 @@ export default function CardList() {
   }, [products, search, maxPrice, categories, platforms]);
 
   return (
-    <div>
+    <div className="lg:w-64 lg:flex-auto">
       <div className="flex flex-wrap items-center justify-center gap-4">
         {filteredProducts &&
           filteredProducts

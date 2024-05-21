@@ -13,15 +13,16 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import logo from "/public/logov.png";
+import logo from "/public/logo.png";
 import Image from "next/image";
 import { SlBasket } from "react-icons/sl";
 import Badge from "@mui/material/Badge";
-import AccountDropDown from "./AccountDropdown";
+// import AccountDropDown from "./AccountDropdown";
 import { useStore } from "zustand";
 import { useOrderStore } from "@/store/orderStore";
 import GameListMenu from "./GameListMenu";
 import PlatformListMenu from "./PlatformListMenu";
+import { ModeToggle } from "./ModeToggle";
 
 export function Navbar() {
   const { products } = useStore(useOrderStore, (state) => state);
@@ -67,12 +68,12 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 flex w-screen items-center justify-between rounded-b-md border bg-primary p-4 text-secondary shadow-md transition-all duration-300 ease-in-out",
+        "fixed top-0 z-50 flex w-screen items-center justify-between rounded-b-md border bg-primary p-4 shadow-md transition-all duration-300 ease-in-out",
         !visible && "-top-40",
       )}
     >
       <Link href="/" passHref>
-        <Image src={logo} alt="Videodrive" width={56} />
+        <Image src={logo} alt="Videodrive" width={65} />
       </Link>
 
       <NavigationMenu className="hidden md:block">
@@ -117,7 +118,8 @@ export function Navbar() {
             <SlBasket size={24} />
           </Badge>
         </Link>
-        <AccountDropDown />
+        {/* <AccountDropDown /> */}
+        <ModeToggle />
       </div>
     </nav>
   );

@@ -22,7 +22,7 @@ export default function HeroSection({ slides }: { slides: Slide[] }) {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="relative mx-8 box-border rounded-md bg-secondary shadow-md"
+      className="relative mx-8 box-border hidden rounded-md bg-secondary shadow-md md:block"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >

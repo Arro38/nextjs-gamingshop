@@ -6,10 +6,7 @@ export async function POST(req: Request) {
   const { products }: { products: { product: Product; quantity: number }[] } =
     await req.json();
 
-  const redirectURL = "http://localhost:3000";
-  // process.env.NODE_ENV === "development"
-  //   ? "http://localhost:3000"
-  //   : "https://stripe-checkout-next-js-demo.vercel.app";
+  const redirectURL = process.env.NEXT_PUBLIC_URL;
   const items = products.map(async ({ product, quantity }) => {
     return {
       price_data: {
@@ -28,11 +25,16 @@ export async function POST(req: Request) {
     payment_method_types: ["card"],
     line_items: await Promise.all(items),
     mode: "payment",
-    success_url: redirectURL + "?status=success",
-    cancel_url: redirectURL + "?status=cancel",
-    // metadata: {
-    //   images: item.cover,
-    // },
+    success_url:
+      redirectURL +
+      "?status=success" +
+      "&sessionId={CHECKOUT_SESSION_ID}" +
+      "&total={CHECKOUT_SESSION_TOTAL}",
+    cancel_url:
+      redirectURL +
+      "?status=cancel" +
+      "&sessionId={CHECKOUT_SESSION_ID}" +
+      "&total={CHECKOUT_SESSION_TOTAL}",
   });
 
   return NextResponse.json({ sessionId: session.id }, { status: 200 });

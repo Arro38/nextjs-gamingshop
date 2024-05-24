@@ -67,3 +67,10 @@ model Slide {
   cover     String
   createdAt DateTime @default(now())
 }
+
+model StripeSession {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String
+  paied     Boolean
+  createdAt DateTime @default(now())
+}

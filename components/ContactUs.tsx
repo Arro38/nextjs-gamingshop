@@ -103,9 +103,9 @@ export function ContactUs() {
   }
 
   return (
-    <div className="mx-auto my-4 max-w-lg rounded-md border p-4 shadow-md ">
+    <div className="rounded-md border p-4 shadow-md md:w-1/2 ">
       <Form {...form}>
-        <h2 className="my-4 text-2xl font-semibold">Contact Us</h2>
+        <h2 className="my-4 text-2xl font-semibold">Contactez nous</h2>
         <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8">
           <FormField
             control={form.control}

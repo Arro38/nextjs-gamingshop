@@ -26,15 +26,9 @@ export async function POST(req: Request) {
     line_items: await Promise.all(items),
     mode: "payment",
     success_url:
-      redirectURL +
-      "?status=success" +
-      "&sessionId={CHECKOUT_SESSION_ID}" +
-      "&total={CHECKOUT_SESSION_TOTAL}",
-    cancel_url:
-      redirectURL +
-      "?status=cancel" +
-      "&sessionId={CHECKOUT_SESSION_ID}" +
-      "&total={CHECKOUT_SESSION_TOTAL}",
+      redirectURL + "?status=success&sessionId={CHECKOUT_SESSION_ID}",
+
+    cancel_url: redirectURL + "?status=cancel&sessionId={CHECKOUT_SESSION_ID}",
   });
 
   return NextResponse.json({ sessionId: session.id }, { status: 200 });

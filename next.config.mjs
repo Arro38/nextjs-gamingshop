@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "videodrive.fr",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "images.jeuxvideo.com",
+        port: "",
+      },
     ],
   },
 };

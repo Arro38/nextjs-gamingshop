@@ -15,7 +15,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "images.jeuxvideo.com",
+        hostname: "image.jeuxvideo.com",
         port: "",
       },
     ],

@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Boutique de Jeux Vidéo / Consoles
+<!-- Links -->
+[Live](https://gamingshop.coding974.com/)
+[Vercel](https://nextjs-gamingshop.vercel.app/)
 
-## Getting Started
+Ce projet est une boutique en ligne de jeux vidéo et consoles, développée avec Next.js 14, Prisma, MongoDB et Stripe pour les paiements, et utilisant la librairie "shadcn/ui" pour l'interface utilisateur.
 
-First, run the development server:
+## Technologies Utilisées
+- Next.js 14 : Framework React pour le rendu côté serveur
+- Prisma : ORM pour la gestion de la base de données
+- MongoDB : Base de données NoSQL pour le stockage des données
+- Stripe : Plateforme de paiement pour les transactions en ligne
+- shadcn/ui : Librairie pour l'interface utilisateur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Fonctionnalités
+- Affichage et achat de jeux vidéo et consoles
+- Intégration de Stripe pour les paiements sécurisés
+- Utilisation de la librairie "shadcn/ui" pour une interface utilisateur moderne et personnalisée
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Comment Démarrer
+1. Cloner le dépôt
+2. Installer les dépendances avec `npm install`
+3. Configurer les clés d'API pour MongoDB et Stripe
+4. Exécuter les migrations Prisma avec `npx prisma migrate dev`
+5. Générer les artefacts Prisma avec `npx prisma generate`
+6. Lancer l'application avec `npm run dev`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variables d'Environnement Requises
+Assurez-vous de définir les variables d'environnement suivantes dans un fichier `.env` à la racine du projet :
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `DATABASE_URL`: URL de la base de données MongoDB
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: Clé publique Stripe pour les paiements
+- `STRIPE_SECRET_KEY`: Clé secrète Stripe pour les paiements
+- `NEXT_PUBLIC_URL`: URL publique de l'application
 
-## Learn More
+## Auteur
+Ce projet a été développé par Etienne.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+N'hésitez pas à contribuer ou à poser des questions !
